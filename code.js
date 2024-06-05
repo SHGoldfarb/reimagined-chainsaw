@@ -234,15 +234,16 @@ const calculateFinalAmount = (dates, movements, dailyReturn) => {
   let currentAmount = 0.0;
   let lastDate = dates[0];
   dates.forEach((date, i) => {
-    const movement = movements[i];
-    if (isNaN(date) || movement === "") {
+    if (isNaN(date)) {
       return;
     }
 
+    const movement = movements[i] || 0;
     const elapsed = date - lastDate;
     currentAmount *= (1 + dailyReturn) ** elapsed;
-    lastDate = date;
     currentAmount += movement;
+
+    lastDate = date;
   });
 
   return currentAmount;
