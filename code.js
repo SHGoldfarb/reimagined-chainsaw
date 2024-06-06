@@ -249,7 +249,7 @@ const calculateFinalAmount = (dates, movements, dailyReturn) => {
   return currentAmount;
 };
 
-function PROFITABILITY(dates, movements, finalAmount) {
+function DAILYRETURNS(dates, movements, finalAmount, accuracy = 0.005) {
   if (dates.length !== movements.length) {
     throw new Error("dates and movements must be the same size");
   }
@@ -268,7 +268,7 @@ function PROFITABILITY(dates, movements, finalAmount) {
   };
   recalculate();
 
-  while (Math.abs(amount - finalAmount) > 1) {
+  while (Math.abs(amount - finalAmount) > accuracy) {
     while (amount > finalAmount) {
       dailyReturn -= step;
       recalculate();
